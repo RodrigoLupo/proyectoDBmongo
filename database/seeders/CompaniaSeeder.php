@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Compania;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CompaniaSeeder extends Seeder
@@ -13,11 +12,16 @@ class CompaniaSeeder extends Seeder
      */
     public function run(): void
     {
-        Compania::create([
+        // Modifica el modelo y los datos para MongoDB
+        $compania = new Compania([
             'nombre' => 'Libreria Feli',
             'correo' => 'info@gmail.com',
             'telefono' => '954632132',
             'direccion' => 'Perú-Arequipa',
         ]);
+
+        // Guarda el documento en la colección de MongoDB
+        $compania->save();
     }
 }
+

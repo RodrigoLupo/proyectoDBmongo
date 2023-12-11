@@ -50,7 +50,6 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Display the specified resource.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -63,7 +62,6 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -76,7 +74,6 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  User $usuario
@@ -94,12 +91,10 @@ class UsuarioController extends Controller
             'name' => $request->name,
             'email' => $request->email,
         ];
-        
-        // Actualiza la contraseña solo si se proporciona un nuevo valor
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
-        
+
         $usuario->update($data);
 
         return redirect()->route('usuarios.index')

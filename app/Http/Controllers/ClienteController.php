@@ -71,8 +71,9 @@ class ClienteController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
+        $id = $request->id;
         $cliente = Cliente::find($id);
 
         return view('cliente.edit', compact('cliente'));

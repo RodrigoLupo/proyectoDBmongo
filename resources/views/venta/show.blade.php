@@ -14,7 +14,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: center;">
 
                         <span id="card_title">
-                            {{ __('ventas') }}
+                            {{ __('Listar ventas') }}
                         </span>
                     </div>
                 </div>

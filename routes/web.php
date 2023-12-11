@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\VentaController;
+use App\Models\Cliente;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,7 +53,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/venta/cliente', [VentaController::class, 'cliente'])->name('venta.cliente');
     Route::post('/venta', [VentaController::class, 'store'])->name('venta.store');
     Route::get('/venta/{id}/ticket', [VentaController::class, 'ticket'])->name('venta.ticket');
-
 });
 
 require __DIR__ . '/auth.php';

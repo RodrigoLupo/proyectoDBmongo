@@ -1,8 +1,6 @@
 <?php
 
 namespace Database\Seeders;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,10 +10,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(CompaniaSeeder::class);
-        $this->call(UserSeeder::class);
-        // \App\Models\User::factory(10)->create();
+        // Ejecuta el seeder específico para MongoDB
+        $this->call([
+            CompaniaSeeder::class,
+            UserSeeder::class,
+        ]);
 
+        // Puedes comentar o eliminar estas líneas si no necesitas seeders de Eloquent
+        // \App\Models\User::factory(10)->create();
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

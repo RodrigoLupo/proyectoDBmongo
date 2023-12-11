@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use MongoDB\Laravel\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $primaryKey = 'id';
 
     static $rules = [
         'name' => 'required',
@@ -61,5 +62,20 @@ class User extends Authenticatable
     public function adminlte_profile_url()
     {
         return 'profile';
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Utilizar el evento "creating" para asignar un nuevo valor a "id"
+        static::creating(function ($categoria) {
+            $ultimoRegistro = self::orderBy('id', 'desc')->first();
+
+            // Obtener el último "id" y asignar uno nuevo autoincrementado
+            $nuevoId = ($ultimoRegistro) ? $ultimoRegistro->id + 1 : 1;
+
+            // Asignar el nuevo "id" al modelo antes de guardarlo
+            $categoria->id = $nuevoId;
+        });
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
+//use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 /**
  * Class Producto
  *
@@ -21,8 +21,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Producto extends Model
 {
+    protected $primaryKey = 'id';
 
   static $rules = [
+
     'codigo' => 'required',
     'producto' => 'required',
     'precio_compra' => 'required',
@@ -42,5 +44,20 @@ class Producto extends Model
   public function categoria()
   {
     return $this->belongsTo(Categoria::class);
+  }
+  protected static function boot()
+  {
+      parent::boot();
+
+      // Utilizar el evento "creating" para asignar un nuevo valor a "id"
+      static::creating(function ($categoria) {
+          $ultimoRegistro = self::orderBy('id', 'desc')->first();
+
+          // Obtener el último "id" y asignar uno nuevo autoincrementado
+          $nuevoId = ($ultimoRegistro) ? $ultimoRegistro->id + 1 : 1;
+
+          // Asignar el nuevo "id" al modelo antes de guardarlo
+          $categoria->id = $nuevoId;
+      });
   }
 }
